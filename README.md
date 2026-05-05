@@ -2,6 +2,8 @@
 
 Tooltips for React, Figma plugins, Framer, and vanilla JS.
 
+**[Try the live demo →](https://8bitbish.github.io/tooltips)**
+
 - Positions above or below the trigger automatically
 - Stays within the viewport
 - After the first tooltip in a session, subsequent ones appear instantly
