@@ -1,0 +1,75 @@
+.tooltip {
+  position: fixed;
+  z-index: 99999;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #1c1c1c;
+  color: #fff;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 350;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.tooltip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  left: var(--arrow-x, 50%);
+  width: 8px;
+  height: 8px;
+  background: #1c1c1c;
+  pointer-events: none;
+  transform: translateX(-50%) rotate(45deg);
+  z-index: -1;
+}
+
+/* Arrow points down (tooltip is above trigger) */
+.tooltip--above::after {
+  top: calc(100% - 4px);
+  border-radius: 0 0 2px 0;
+}
+
+/* Arrow points up (tooltip is below trigger) */
+.tooltip--below::after {
+  bottom: calc(100% - 4px);
+  border-radius: 2px 0 0 0;
+}
+
+.tooltip--above {
+  transform: translate3d(0, -100%, 0);
+}
+
+.tooltip--below {
+  transform: translate3d(0, 0, 0);
+}
+
+.tooltip__text {
+  line-height: 1;
+}
+
+.tooltip__shortcut {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.7);
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1;
+  border: none;
+}
