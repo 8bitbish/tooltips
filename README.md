@@ -49,4 +49,4 @@ Set any of these CSS variables once in your global stylesheet to style all toolt
 | `text`     | `string`          | —       | Tooltip label (required)                     |
 | `shortcut` | `string`          | —       | Optional keyboard shortcut shown on the right |
 | `delay`    | `number`          | `900`   | Delay in ms before the tooltip appears       |
-| `children` | `React.ReactNode` | —       | The element that triggers the tooltip        |
+| `children` | `React.ReactElement` | —     | A single element that triggers the tooltip   |

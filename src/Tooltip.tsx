@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect } from "react"
+import React, { useState, useRef, useLayoutEffect, cloneElement, Children } from "react"
 import { createPortal } from "react-dom"
 
 // Shared hot state: once any tooltip has been shown, subsequent hovers are instant
@@ -19,29 +19,29 @@ function startCooldown() {
 interface TooltipProps {
     text: string
     shortcut?: string
-    /** Delay in ms before tooltip appears. Default 300. */
+    /** Delay in ms before tooltip appears. Default 900. */
     delay?: number
-    children: React.ReactNode
+    children: React.ReactElement
 }
 
 interface TriggerPos {
-    x: number   // center X of trigger
-    y: number   // top anchor (above: trigger top, below: trigger bottom)
+    x: number
+    y: number
     above: boolean
 }
 
 export function Tooltip({ text, shortcut, delay = 900, children }: TooltipProps) {
     const [triggerPos, setTriggerPos] = useState<TriggerPos | null>(null)
-    const wrapRef = useRef<HTMLDivElement>(null)
+    const triggerRef = useRef<HTMLElement | null>(null)
     const tooltipRef = useRef<HTMLDivElement>(null)
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     function show() {
         const effectiveDelay = tooltipHot ? 0 : delay
         timerRef.current = setTimeout(() => {
-            const trigger = wrapRef.current?.firstElementChild as HTMLElement | null
-            if (!trigger) return
-            const rect = trigger.getBoundingClientRect()
+            const el = triggerRef.current
+            if (!el) return
+            const rect = el.getBoundingClientRect()
             const gap = 8
             const above = rect.top >= 42 + gap
             markHot()
@@ -59,9 +59,6 @@ export function Tooltip({ text, shortcut, delay = 900, children }: TooltipProps)
         startCooldown()
     }
 
-    // After the tooltip renders, measure its width, clamp to viewport,
-    // then set final position and trigger the entrance animation — all
-    // before the browser paints, so there's no flash.
     useLayoutEffect(() => {
         const el = tooltipRef.current
         if (!el || !triggerPos) return
@@ -75,9 +72,22 @@ export function Tooltip({ text, shortcut, delay = 900, children }: TooltipProps)
         el.style.visibility = "visible"
     }, [triggerPos])
 
+    const child = Children.only(children)
+    const trigger = cloneElement(child, {
+        ref: triggerRef,
+        onMouseEnter: (e: MouseEvent) => {
+            child.props.onMouseEnter?.(e)
+            show()
+        },
+        onMouseLeave: (e: MouseEvent) => {
+            child.props.onMouseLeave?.(e)
+            hide()
+        },
+    })
+
     return (
-        <div ref={wrapRef} onMouseEnter={show} onMouseLeave={hide} style={{ display: "contents" }}>
-            {children}
+        <>
+            {trigger}
             {triggerPos && createPortal(
                 <div
                     ref={tooltipRef}
@@ -89,6 +99,6 @@ export function Tooltip({ text, shortcut, delay = 900, children }: TooltipProps)
                 </div>,
                 document.body
             )}
-        </div>
+        </>
     )
 }
