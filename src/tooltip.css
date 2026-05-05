@@ -5,6 +5,7 @@
  *
  *   --tooltip-bg:          Background colour        (default: #1c1c1c)
  *   --tooltip-radius:      Corner radius            (default: 6px)
+ *   --tooltip-font:        Font family              (default: inherit)
  *   --tooltip-font-size:   Font size                (default: 11px)
  *   --tooltip-font-weight: Font weight              (default: 350)
  */
@@ -20,6 +21,7 @@
   color: #fff;
   border-radius: var(--tooltip-radius, 6px);
   padding: 8px 12px;
+  font-family: var(--tooltip-font, inherit);
   font-size: var(--tooltip-font-size, 11px);
   font-weight: var(--tooltip-font-weight, 350);
   white-space: nowrap;

@@ -78,9 +78,10 @@ Set these CSS variables once in your global stylesheet — applies to both React
 
 ```css
 :root {
-  --tooltip-bg:          #1c1c1c; /* background colour */
-  --tooltip-radius:      6px;     /* corner radius     */
-  --tooltip-font-size:   11px;    /* font size         */
-  --tooltip-font-weight: 350;     /* font weight       */
+  --tooltip-bg:          #1c1c1c; /* background colour      */
+  --tooltip-radius:      6px;     /* corner radius          */
+  --tooltip-font:        inherit; /* font family            */
+  --tooltip-font-size:   11px;    /* font size              */
+  --tooltip-font-weight: 350;     /* font weight            */
 }
 ```
