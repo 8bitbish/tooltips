@@ -504,7 +504,7 @@
           <span class="control-label">Shortcut font</span>
           <div class="control-right">
             <div class="pills" id="shortcut-font-pills">
-              <button class="pill active" data-font="inherit">Match</button>
+              <button class="pill active" data-font="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif">System</button>
               <button class="pill" data-font="ui-monospace, 'SF Mono', monospace">Mono</button>
               <button class="pill" data-font="Georgia, 'Times New Roman', serif">Serif</button>
             </div>
@@ -582,6 +582,8 @@
   <script type="module" src="./vanilla.mjs"></script>
   <script>
     const root = document.documentElement
+    // Apply defaults that differ from the CSS fallbacks
+    root.style.setProperty('--tooltip-shortcut-font', "-apple-system, BlinkMacSystemFont, 'Inter', sans-serif")
 
     // Background swatches
     document.getElementById('bg-swatches').addEventListener('click', e => {
