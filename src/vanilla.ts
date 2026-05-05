@@ -1,15 +1,4 @@
-let tooltipHot = false
-let hotTimer: ReturnType<typeof setTimeout> | null = null
-
-function markHot() {
-    if (hotTimer) clearTimeout(hotTimer)
-    tooltipHot = true
-}
-
-function startCooldown() {
-    if (hotTimer) clearTimeout(hotTimer)
-    hotTimer = setTimeout(() => { tooltipHot = false }, 500)
-}
+import { markHot, startCooldown, isHot } from "./hot-state"
 
 let activeTooltip: HTMLElement | null = null
 let showTimer: ReturnType<typeof setTimeout> | null = null
@@ -20,7 +9,7 @@ function showTooltip(trigger: HTMLElement) {
 
     const shortcut = trigger.dataset.shortcut
     const delay = parseInt(trigger.dataset.delay ?? '900', 10)
-    const effectiveDelay = tooltipHot ? 0 : delay
+    const effectiveDelay = isHot() ? 0 : delay
 
     showTimer = setTimeout(() => {
         const rect = trigger.getBoundingClientRect()

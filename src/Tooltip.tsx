@@ -1,20 +1,6 @@
 import React, { useState, useRef, useLayoutEffect, cloneElement, Children } from "react"
 import { createPortal } from "react-dom"
-
-// Shared hot state: once any tooltip has been shown, subsequent hovers are instant
-// for a short window after the last tooltip disappears.
-let tooltipHot = false
-let hotTimer: ReturnType<typeof setTimeout> | null = null
-
-function markHot() {
-    if (hotTimer) clearTimeout(hotTimer)
-    tooltipHot = true
-}
-
-function startCooldown() {
-    if (hotTimer) clearTimeout(hotTimer)
-    hotTimer = setTimeout(() => { tooltipHot = false }, 500)
-}
+import { markHot, startCooldown, isHot } from "./hot-state"
 
 interface TooltipProps {
     text: string
@@ -37,7 +23,7 @@ export function Tooltip({ text, shortcut, delay = 900, children }: TooltipProps)
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     function show() {
-        const effectiveDelay = tooltipHot ? 0 : delay
+        const effectiveDelay = isHot() ? 0 : delay
         timerRef.current = setTimeout(() => {
             const el = triggerRef.current
             if (!el) return
