@@ -1,0 +1,113 @@
+/**
+ * @8bitbish/tooltips
+ *
+ * Customise with CSS variables (set on :root or any ancestor):
+ *
+ *   --tooltip-bg:          Background colour        (default: #1c1c1c)
+ *   --tooltip-radius:      Corner radius            (default: 6px)
+ *   --tooltip-font:        Font family              (default: inherit)
+ *   --tooltip-font-size:   Font size                (default: 11px)
+ *   --tooltip-font-weight: Font weight              (default: 350)
+ */
+
+.tooltip {
+  position: fixed;
+  z-index: 99999;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--tooltip-bg, #1c1c1c);
+  color: #fff;
+  border-radius: var(--tooltip-radius, 6px);
+  padding: 8px 12px;
+  font-family: var(--tooltip-font, inherit);
+  font-size: var(--tooltip-font-size, 11px);
+  font-weight: var(--tooltip-font-weight, 350);
+  white-space: nowrap;
+  will-change: transform, opacity;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Arrow — CSS border triangle, no z-index tricks needed */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  pointer-events: none;
+}
+
+/* Above/below arrows use --arrow-x for horizontal alignment */
+.tooltip--above::after,
+.tooltip--below::after {
+  left: var(--arrow-x, 50%);
+  transform: translateX(-50%);
+}
+
+/* Arrow points down (tooltip is above trigger) */
+.tooltip--above::after {
+  top: 100%;
+  border-top-color: var(--tooltip-bg, #1c1c1c);
+  border-bottom-width: 0;
+}
+
+/* Arrow points up (tooltip is below trigger) */
+.tooltip--below::after {
+  bottom: 100%;
+  border-bottom-color: var(--tooltip-bg, #1c1c1c);
+  border-top-width: 0;
+}
+
+.tooltip--above {
+  transform: translate3d(0, -100%, 0);
+}
+
+.tooltip--below {
+  transform: translate3d(0, 0, 0);
+}
+
+.tooltip--left {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.tooltip--right {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Arrow points right (tooltip is to the left of trigger) */
+.tooltip--left::after {
+  left: 100%;
+  top: var(--arrow-y, 50%);
+  transform: translateY(-50%);
+  border-left-color: var(--tooltip-bg, #1c1c1c);
+  border-right-width: 0;
+}
+
+/* Arrow points left (tooltip is to the right of trigger) */
+.tooltip--right::after {
+  right: 100%;
+  top: var(--arrow-y, 50%);
+  transform: translateY(-50%);
+  border-right-color: var(--tooltip-bg, #1c1c1c);
+  border-left-width: 0;
+}
+
+.tooltip__text {
+  line-height: 1;
+}
+
+.tooltip__shortcut {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-size: var(--tooltip-font-size, 11px);
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1;
+  border: none;
+}
