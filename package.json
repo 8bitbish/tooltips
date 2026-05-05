@@ -2,6 +2,10 @@
   "name": "@8bitbish/tooltips",
   "version": "1.0.0",
   "description": "Tooltip component for React, Figma plugins, and Framer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/8bitbish/tooltips"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
