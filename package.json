@@ -1,6 +1,6 @@
 {
   "name": "@8bitbish/tooltips",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Tooltip component for React, Figma plugins, Framer, and vanilla JS",
   "repository": {
     "type": "git",
