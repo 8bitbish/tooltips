@@ -6,7 +6,8 @@
  *   --tooltip-bg:          Background colour        (default: #1c1c1c)
  *   --tooltip-color:       Text colour              (default: #fff)
  *   --tooltip-radius:      Corner radius            (default: 6px)
- *   --tooltip-font:        Font family              (default: inherit)
+ *   --tooltip-font:         Font family for label    (default: inherit)
+ *   --tooltip-shortcut-font: Font family for shortcut badge (default: inherit)
  *   --tooltip-font-size:   Font size                (default: 11px)
  *   --tooltip-font-weight: Font weight              (default: 350)
  */
@@ -107,7 +108,7 @@
   border-radius: 4px;
   padding: 2px 5px;
   font-size: var(--tooltip-font-size, 11px);
-  font-family: inherit;
+  font-family: var(--tooltip-shortcut-font, inherit);
   font-weight: 500;
   line-height: 1;
   border: none;

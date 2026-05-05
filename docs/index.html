@@ -490,10 +490,21 @@
         </div>
 
         <div class="control-row">
-          <span class="control-label">Font</span>
+          <span class="control-label">Label font</span>
           <div class="control-right">
             <div class="pills" id="font-pills">
               <button class="pill active" data-font="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif">System</button>
+              <button class="pill" data-font="ui-monospace, 'SF Mono', monospace">Mono</button>
+              <button class="pill" data-font="Georgia, 'Times New Roman', serif">Serif</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <span class="control-label">Shortcut font</span>
+          <div class="control-right">
+            <div class="pills" id="shortcut-font-pills">
+              <button class="pill active" data-font="inherit">Match</button>
               <button class="pill" data-font="ui-monospace, 'SF Mono', monospace">Mono</button>
               <button class="pill" data-font="Georgia, 'Times New Roman', serif">Serif</button>
             </div>
@@ -598,13 +609,22 @@
       root.style.setProperty('--tooltip-shortcut-color', light ? 'rgba(0,0,0,0.5)'   : 'rgba(255,255,255,0.7)')
     }
 
-    // Font pills
+    // Label font pills
     document.getElementById('font-pills').addEventListener('click', e => {
       const pill = e.target.closest('.pill[data-font]')
       if (!pill) return
       document.querySelectorAll('#font-pills .pill').forEach(p => p.classList.remove('active'))
       pill.classList.add('active')
       root.style.setProperty('--tooltip-font', pill.dataset.font)
+    })
+
+    // Shortcut font pills
+    document.getElementById('shortcut-font-pills').addEventListener('click', e => {
+      const pill = e.target.closest('.pill[data-font]')
+      if (!pill) return
+      document.querySelectorAll('#shortcut-font-pills .pill').forEach(p => p.classList.remove('active'))
+      pill.classList.add('active')
+      root.style.setProperty('--tooltip-shortcut-font', pill.dataset.font)
     })
 
     // Weight pills
