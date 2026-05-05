@@ -26,39 +26,33 @@
   font-weight: var(--tooltip-font-weight, 350);
   white-space: nowrap;
   will-change: transform, opacity;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-.tooltip::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  pointer-events: none;
-}
-
+/* Arrow — CSS border triangle, no z-index tricks needed */
 .tooltip::after {
   content: '';
   position: absolute;
   left: var(--arrow-x, 50%);
-  width: 8px;
-  height: 8px;
-  background: var(--tooltip-bg, #1c1c1c);
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
   pointer-events: none;
-  transform: translateX(-50%) rotate(45deg);
-  z-index: -1;
 }
 
 /* Arrow points down (tooltip is above trigger) */
 .tooltip--above::after {
-  top: calc(100% - 4px);
-  border-radius: 0 0 2px 0;
+  top: 100%;
+  border-top-color: var(--tooltip-bg, #1c1c1c);
+  border-bottom-width: 0;
 }
 
 /* Arrow points up (tooltip is below trigger) */
 .tooltip--below::after {
-  bottom: calc(100% - 4px);
-  border-radius: 2px 0 0 0;
+  bottom: 100%;
+  border-bottom-color: var(--tooltip-bg, #1c1c1c);
+  border-top-width: 0;
 }
 
 .tooltip--above {
@@ -76,8 +70,8 @@
 .tooltip__shortcut {
   display: inline-flex;
   align-items: center;
-  background: rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.7);
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
   border-radius: 4px;
   padding: 2px 5px;
   font-size: var(--tooltip-font-size, 11px);
