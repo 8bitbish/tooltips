@@ -1,6 +1,6 @@
 # @8bitbish/tooltips
 
-A tooltip component for React, Figma plugins, and Framer.
+A tooltip component for React, Figma plugins, Framer, and vanilla JS.
 
 - Positions itself above or below the trigger automatically
 - Stays within the viewport
@@ -41,6 +41,34 @@ Set any of these CSS variables once in your global stylesheet to style all toolt
   --tooltip-font-weight: 350;     /* font weight       */
 }
 ```
+
+## Vanilla JS (no React)
+
+For plain HTML pages, Chrome extensions, or any non-React environment:
+
+```js
+import '@8bitbish/tooltips/vanilla'
+import '@8bitbish/tooltips/dist/tooltip.css'
+```
+
+Then add `data-tooltip` to any element — no wrapping needed:
+
+```html
+<button data-tooltip="Save file" data-shortcut="⌘S">Save</button>
+<button data-tooltip="Delete">🗑</button>
+```
+
+Dynamically added elements are picked up automatically.
+
+| Attribute        | Description                                    |
+|------------------|------------------------------------------------|
+| `data-tooltip`   | Tooltip label (required)                       |
+| `data-shortcut`  | Optional keyboard shortcut shown on the right  |
+| `data-delay`     | Delay in ms before appearing (default `900`)   |
+
+Same CSS variables apply — set them once and both React and vanilla tooltips share the same look.
+
+---
 
 ## Props
 
