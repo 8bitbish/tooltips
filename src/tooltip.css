@@ -33,12 +33,17 @@
 .tooltip::after {
   content: '';
   position: absolute;
-  left: var(--arrow-x, 50%);
-  transform: translateX(-50%);
   width: 0;
   height: 0;
   border: 6px solid transparent;
   pointer-events: none;
+}
+
+/* Above/below arrows use --arrow-x for horizontal alignment */
+.tooltip--above::after,
+.tooltip--below::after {
+  left: var(--arrow-x, 50%);
+  transform: translateX(-50%);
 }
 
 /* Arrow points down (tooltip is above trigger) */
@@ -61,6 +66,32 @@
 
 .tooltip--below {
   transform: translate3d(0, 0, 0);
+}
+
+.tooltip--left {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.tooltip--right {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Arrow points right (tooltip is to the left of trigger) */
+.tooltip--left::after {
+  left: 100%;
+  top: var(--arrow-y, 50%);
+  transform: translateY(-50%);
+  border-left-color: var(--tooltip-bg, #1c1c1c);
+  border-right-width: 0;
+}
+
+/* Arrow points left (tooltip is to the right of trigger) */
+.tooltip--right::after {
+  right: 100%;
+  top: var(--arrow-y, 50%);
+  transform: translateY(-50%);
+  border-right-color: var(--tooltip-bg, #1c1c1c);
+  border-left-width: 0;
 }
 
 .tooltip__text {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@8bitbish/tooltips — Demo</title>
-  <link rel="stylesheet" href="https://unpkg.com/@8bitbish/tooltips/dist/tooltip.css">
+  <link rel="stylesheet" href="https://unpkg.com/@8bitbish/tooltips@1.4.0/dist/tooltip.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -181,6 +181,24 @@
       flex-shrink: 0;
     }
 
+    /* ── Compass placement demo ── */
+    .compass {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      grid-template-rows: auto auto auto;
+      align-items: center;
+      justify-items: center;
+      gap: 12px;
+      padding: 28px;
+    }
+
+    .compass-center {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
     /* ── Bottom section (shows tooltip appearing above) ── */
     .bottom-note {
       font-size: 11px;
@@ -253,6 +271,26 @@
     </div>
   </div>
 
+  <!-- Forced placement -->
+  <div class="section">
+    <div class="section-label">Forced placement</div>
+    <div class="card compass">
+      <!-- Row 1: above button centred across all 3 cols -->
+      <div style="grid-column: 1 / -1;">
+        <button class="btn" data-tooltip="Always appears above" data-placement="above">Above</button>
+      </div>
+      <!-- Row 2: left · center dot · right -->
+      <button class="btn" data-tooltip="Always appears to the left" data-placement="left">Left</button>
+      <div class="compass-center"></div>
+      <button class="btn" data-tooltip="Always appears to the right" data-placement="right">Right</button>
+      <!-- Row 3: below button centred -->
+      <div style="grid-column: 1 / -1;">
+        <button class="btn" data-tooltip="Always appears below" data-placement="below">Below</button>
+      </div>
+    </div>
+    <p class="bottom-note">Pass <code>data-placement="above|below|left|right"</code> to pin a direction regardless of scroll position</p>
+  </div>
+
   <!-- Near bottom — tooltip flips above -->
   <div class="section">
     <div class="section-label">Near the bottom — tooltip flips above</div>
@@ -265,6 +303,6 @@
     <p class="bottom-note">Tooltips automatically flip above when there's not enough room below</p>
   </div>
 
-  <script type="module" src="https://unpkg.com/@8bitbish/tooltips/dist/vanilla.mjs"></script>
+  <script type="module" src="https://unpkg.com/@8bitbish/tooltips@1.4.0/dist/vanilla.mjs"></script>
 </body>
 </html>

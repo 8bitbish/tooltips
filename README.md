@@ -4,7 +4,7 @@ Tooltips for React, Figma plugins, Framer, and vanilla JS.
 
 **[Try the live demo →](https://8bitbish.github.io/tooltips)**
 
-- Positions above or below the trigger automatically
+- Auto-positions above, below, left, or right of the trigger
 - Stays within the viewport
 - After the first tooltip in a session, subsequent ones appear instantly
 
@@ -37,12 +37,13 @@ Wrap any single element:
 
 ### Props
 
-| Prop       | Type                 | Default | Description                                   |
-|------------|----------------------|---------|-----------------------------------------------|
-| `text`     | `string`             | —       | Tooltip label (required)                      |
-| `shortcut` | `string`             | —       | Keyboard shortcut shown on the right          |
-| `delay`    | `number`             | `900`   | Delay in ms before the tooltip appears        |
-| `children` | `React.ReactElement` | —       | The element that triggers the tooltip         |
+| Prop        | Type                                      | Default | Description                                                  |
+|-------------|-------------------------------------------|---------|--------------------------------------------------------------|
+| `text`      | `string`                                  | —       | Tooltip label (required)                                     |
+| `shortcut`  | `string`                                  | —       | Keyboard shortcut shown on the right                         |
+| `delay`     | `number`                                  | `900`   | Delay in ms before the tooltip appears                       |
+| `placement` | `'above' \| 'below' \| 'left' \| 'right'` | auto    | Force a direction; auto-detects (above → below → left → right) if omitted |
+| `children`  | `React.ReactElement`                      | —       | The element that triggers the tooltip                        |
 
 ---
 
@@ -66,11 +67,12 @@ Dynamically added elements are picked up automatically via MutationObserver.
 
 ### Attributes
 
-| Attribute       | Description                                   |
-|-----------------|-----------------------------------------------|
-| `data-tooltip`  | Tooltip label (required)                      |
-| `data-shortcut` | Keyboard shortcut shown on the right          |
-| `data-delay`    | Delay in ms before appearing (default `900`)  |
+| Attribute         | Description                                                              |
+|-------------------|--------------------------------------------------------------------------|
+| `data-tooltip`    | Tooltip label (required)                                                 |
+| `data-shortcut`   | Keyboard shortcut shown on the right                                     |
+| `data-delay`      | Delay in ms before appearing (default `900`)                             |
+| `data-placement`  | Force direction: `above`, `below`, `left`, or `right` (auto if omitted) |
 
 ---
 

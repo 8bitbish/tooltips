@@ -1,4 +1,5 @@
 import { markHot, startCooldown, isHot } from "./hot-state"
+import { type Placement, bestPlacement, positionTooltip } from "./position"
 
 let activeTooltip: HTMLElement | null = null
 let showTimer: ReturnType<typeof setTimeout> | null = null
@@ -9,15 +10,14 @@ function showTooltip(trigger: HTMLElement) {
 
     const shortcut = trigger.dataset.shortcut
     const delay = parseInt(trigger.dataset.delay ?? '900', 10)
+    const forcedPlacement = trigger.dataset.placement as Placement | undefined
     const effectiveDelay = isHot() ? 0 : delay
 
     showTimer = setTimeout(() => {
         const rect = trigger.getBoundingClientRect()
-        const gap = 8
-        const above = rect.top >= 42 + gap
 
         const el = document.createElement('div')
-        el.className = `tooltip tooltip--${above ? 'above' : 'below'}`
+        el.className = 'tooltip'
         el.style.cssText = 'visibility:hidden;position:fixed;top:0;left:0'
 
         const textSpan = document.createElement('span')
@@ -35,17 +35,8 @@ function showTooltip(trigger: HTMLElement) {
         document.body.appendChild(el)
         activeTooltip = el
 
-        const tw = el.offsetWidth
-        const vw = window.innerWidth
-        const x = rect.left + rect.width / 2
-        const y = above ? rect.top - gap : rect.bottom + gap
-        const left = Math.max(8, Math.min(x - tw / 2, vw - tw - 8))
-        const arrowX = Math.max(10, Math.min(x - left, tw - 10))
-
-        el.style.left = `${left}px`
-        el.style.top = `${y}px`
-        el.style.setProperty('--arrow-x', `${arrowX}px`)
-        el.style.visibility = 'visible'
+        const place = forcedPlacement ?? bestPlacement(rect, el.offsetWidth, el.offsetHeight)
+        positionTooltip(el, place, rect)
 
         markHot()
     }, effectiveDelay)
